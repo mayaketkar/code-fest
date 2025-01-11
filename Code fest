@@ -1,0 +1,43 @@
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+import ollama
+import sys
+import os
+import time
+from google.colab import drive
+drive.mount('/content/drive')
+import os
+from IPython.display import display, Markdown
+def analyze_image(image_path, output_file=None):
+    # Read and display the image
+    img = mpimg.imread(image_path)
+    plt.figure(figsize=(10, 10))
+    plt.imshow(img)
+    plt.axis('off')  # Optional: Hide axes for a cleaner display
+    plt.show()
+
+# Define the path to the image file
+image_path = "path/to/your/image.jpg"  # Replace with the actual image path
+
+# Call the function to analyze the image
+analyze_image(image_path)
+
+# Send a query to the AI model
+response = ollama.chat(
+    model="llama3.2-vision",
+    messages=[
+        {
+            "role": "user",
+            "content": """
+Check the homework of the student and give them feedback.
+"""
+        }
+    ]
+)
+
+# Print the AI's response
+print(response)
+
+os.listdir("/content/drive/MyDrive/maya")
+result = analyze_image("/content/drive/MyDrive/maya/test2.jpeg")
+display(Markdown('result''model_dump'()["message"]["content"]))
